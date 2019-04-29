@@ -1,0 +1,86 @@
+/* ER model planning */
+
+CREATE TABLE Roles (
+    ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    Name VARCHAR(255) /* Admin, User */,
+    Comment VARCHAR(255)
+);
+
+CREATE TABLE IF NOT EXISTS Users (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Email VARCHAR(255),
+    Name VARCHAR(255),
+    Surname VARCHAR(255),
+    Info VARCHAR(255),
+    Yarn Int /* Money */
+);
+
+CREATE TABLE UserRoles (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    UserID INT,
+    RoleID INT
+)
+
+ALTER TABLE UserRoles
+ADD FOREIGN KEY (UserId) REFERENCES Users(ID);
+
+ALTER TABLE UserRoles
+ADD FOREIGN KEY (RoleId) REFERENCES Roles(ID);
+
+/**
+ * Upload STL files
+ * Or link to Thingiverse w/ STL file https://www.thingiverse.com/thing:14698
+ * Thingiverse API - https://www.thingiverse.com/developers/rest-api-reference
+ * Max file path ~ 4096 https://stackoverflow.com/questions/9449241/where-is-path-max-defined-in-linux
+ */
+CREATE TABLE Hats (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Code VARCHAR(255),
+    Label VARCHAR(255) NOT NULL,
+    Status VARCHAR(255) NOT NULL /* ["Approved", "Unapproved"] */,
+    Description VARCHAR(255),
+
+    Quantity INT,
+    Model VARCHAR(4096) /* Path to image file */,
+    OwnerID INT
+);
+
+ALTER TABLE Hats
+ADD FOREIGN KEY (OwnerID) REFERENCES Users(ID);
+
+CREATE TABLE Charms (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Code VARCHAR(255) NOT NULL,
+    Label VARCHAR(255) NOT NULL,
+    Status VARCHAR(255) /* ["Approved", "Unapproved"] */,
+    Description VARCHAR(255)
+);
+
+CREATE TABLE HatCharms (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    HatID INT,
+    CharmID INT
+);
+
+ALTER TABLE HatCharms
+ADD FOREIGN KEY (HatID) REFERENCES Hats(ID);
+
+ALTER TABLE HatCharms
+ADD FOREIGN KEY (CharmID) REFERENCES Charms(ID);
+
+
+CREATE TABLE Trade (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    HatID INT,
+    Quantity INT,
+    Yarn INT /* Price */
+);
+
+ALTER TABLE Trade
+ADD FOREIGN KEY (HatID) REFERENCES Hats(ID);
+
+/**
+ * Possible future:
+ * - User/Hat/Charm API
+ * - Car racing game w/ hats - http://schteppe.github.io/cannon.js/demos/rigidVehicle.html
+ */
