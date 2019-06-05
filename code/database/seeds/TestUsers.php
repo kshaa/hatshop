@@ -26,23 +26,32 @@ class TestUsers extends Seeder
 
         // Create test users w/ roles attached
         $admin = User::create(array(
-            'name' => 'Krisjanis Admin Veinbahs',
+            'name' => 'Krisjanis Admin',
+            'surname' => 'Veinbahs',
+            'info'=> 'Life happens. Coffee helps.',
             'email' => 'admin@hatshop.test', 
-            'password' => bcrypt('secret')
+            'password' => bcrypt('secret'),
+            'yarn' => 200.25
         ));
         $admin->roles()->attach($adminRole->id);
 
         $tradeManager = User::create(array(
-            'name' => 'Krisjanis Trademanager Veinbahs',
+            'name' => 'Krisjanis Trademanager',
+            'surname' => 'Veinbahs',
+            'info'=> 'How much does a hipster weigh? An Instagram.',
             'email' => 'trademanager@hatshop.test', 
-            'password' => bcrypt('secret')
+            'password' => bcrypt('secret'),
+            'yarn' => 200.25
         ));
         $tradeManager->roles()->attach($tradeManagerRole->id);
 
         $trader = User::create(array(
-            'name' => 'Krisjanis Trader Veinbahs',
+            'name' => 'Krisjanis Trader',
+            'surname' => 'Veinbahs',
+            'info'=> 'The shovel was a ground breaking invention.',
             'email' => 'trader@hatshop.test', 
-            'password' => bcrypt('secret')
+            'password' => bcrypt('secret'),
+            'yarn' => 200.25
         ));
         $trader->roles()->attach($trader->id);
     }

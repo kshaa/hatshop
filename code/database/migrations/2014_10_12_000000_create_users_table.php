@@ -21,6 +21,11 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            /* Hatshop attributes */
+            $table->decimal('yarn', 10, 2);
+            $table->string('surname');
+            $table->string('info');
         });
     }
 
