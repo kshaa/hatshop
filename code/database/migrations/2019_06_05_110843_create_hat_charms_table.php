@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserRolesTable extends Migration
+class CreateHatCharmsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateUserRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_roles', function (Blueprint $table) {
+        Schema::create('hat_charms', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
-            $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('role_id')->unsigned();
+            $table->bigInteger('hat_id')->unsigned();
+            $table->bigInteger('charm_id')->unsigned();
             $table->timestamps();
         });
 
-        Schema::table('user_roles', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')
+        Schema::table('hat_charms', function (Blueprint $table) {
+            $table->foreign('hat_id')->references('id')->on('hats')
                 ->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')
+            $table->foreign('charm_id')->references('id')->on('charms')
                 ->onDelete('cascade');
         });
     }
@@ -35,6 +35,6 @@ class CreateUserRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('hat_charms');
     }
 }

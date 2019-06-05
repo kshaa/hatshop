@@ -44,4 +44,36 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'user_roles')->withTimestamps();
     }
+
+    /**
+     * All hats that have been created by the user.
+     */
+    public function createdHats()
+    {
+        return $this->belongsToMany(Hat::class, 'hats', 'id', 'creator_id');
+    }
+
+    /**
+     * All charms that have been created by the user.
+     */
+    public function createdCharms()
+    {
+        return $this->belongsToMany(Charm::class, 'charms', 'id', 'creator_id');
+    }
+
+    /**
+     * All hats that belong to the user.
+     */
+    public function ownedHats()
+    {
+        return $this->belongsToMany(Hat::class, 'hats', 'id', 'owner_id');
+    }
+
+    /**
+     * All charms that belong to the user.
+     */
+    public function ownedCharms()
+    {
+        return $this->belongsToMany(Charm::class, 'charms', 'id', 'owner_id');
+    }
 }

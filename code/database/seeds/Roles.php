@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Role;
 
-class GenericRoles extends Seeder
+class Roles extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,17 +14,17 @@ class GenericRoles extends Seeder
     {
         Role::truncate();
         Role::create(array(
-            'name' => 'Administrator',
+            'label' => 'Administrator',
             'code' => 'administrator',
             'comment' => 'A trade manager w/ permission to create more trade managers.'
         ));
         Role::create(array(
-            'name' => 'Trade manager',
+            'label' => 'Trade manager',
             'code' => 'trade_manager',
             'comment' => 'A trader w/ permission to approve the new products.'
         ));
         Role::create(array(
-            'name' => 'Trader',
+            'label' => 'Trader',
             'code' => 'trader',
             'comment' => 'Can create/import new products (charms/hats) and trade them.'
         ));
