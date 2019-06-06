@@ -50,7 +50,7 @@ class User extends Authenticatable
      */
     public function createdHats()
     {
-        return $this->belongsToMany(Hat::class, 'hats', 'id', 'creator_id');
+        return $this->hasMany(Hat::class, 'creator_id');
     }
 
     /**
@@ -58,7 +58,7 @@ class User extends Authenticatable
      */
     public function createdCharms()
     {
-        return $this->belongsToMany(Charm::class, 'charms', 'id', 'creator_id');
+        return $this->hasMany(Charm::class, 'creator_id');
     }
 
     /**
@@ -66,7 +66,7 @@ class User extends Authenticatable
      */
     public function ownedHats()
     {
-        return $this->belongsToMany(Hat::class, 'hats', 'id', 'owner_id');
+        return $this->hasMany(Hat::class, 'owner_id');
     }
 
     /**
@@ -74,6 +74,6 @@ class User extends Authenticatable
      */
     public function ownedCharms()
     {
-        return $this->belongsToMany(Charm::class, 'charms', 'id', 'owner_id');
+        return $this->hasMany(Charm::class, 'owner_id');
     }
 }

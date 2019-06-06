@@ -11,7 +11,7 @@ class Product extends Model
      */
     public function owner()
     {
-        return $this->hasOne(UserProduct::class, 'users');
+        return $this->belongsTo(User::class);
     }
 
     /**
@@ -19,6 +19,6 @@ class Product extends Model
      */
     public function creator()
     {
-        return $this->hasOne(UserProduct::class, 'users');
+        return $this->belongsTo(User::class);
     }
 }
