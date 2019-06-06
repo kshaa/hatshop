@@ -6,6 +6,7 @@ use App\Charm;
 use App\Hat;
 use App\Role;
 use App\User;
+use App\Trade;
 use App\UserRole;
 use App\HatCharm;
 
@@ -46,8 +47,8 @@ class UserRelationships extends Seeder
         $cowboyHat->creator_id = $admin->id;
         $inactiveHat->creator_id = $admin->id;
 
-        $topHat->owner_id = $tradeManager->id;
-        $cowboyHat->owner_id = $trader->id;
+        $topHat->owner_id = $admin->id;
+        $cowboyHat->owner_id = $tradeManager->id;
         $inactiveHat->owner_id = $trader->id;
 
         $topHat->save();
@@ -63,8 +64,8 @@ class UserRelationships extends Seeder
         $kangarooCharm->creator_id = $admin->id;
         $inactiveCharm->creator_id = $admin->id;
 
-        $cheetahCharm->owner_id = $tradeManager->id;
-        $kangarooCharm->owner_id = $trader->id;
+        $cheetahCharm->owner_id = $admin->id;
+        $kangarooCharm->owner_id = $tradeManager->id;
         $inactiveCharm->owner_id = $trader->id;
 
         $cheetahCharm->save();
@@ -73,7 +74,31 @@ class UserRelationships extends Seeder
 
         ## Attach user charms to user hats
         $cheetahCharm->hats()->attach($topHat->id);
-        $kangarooCharm->hats()->attach($inactiveHat->id);
+        $kangarooCharm->hats()->attach($tradeManager->id);
         $inactiveCharm->hats()->attach($inactiveHat->id);
+
+        ## Create some real trades
+        ### $cheetahCharm was sold by $admin to $tradeManager for 100ɕ
+        $charmTrade = Trade::make();
+        $charmTrade->start([
+            'seller_id' => $admin->id,
+            'product_type' => Charm::class,
+            'product_id' => $cheetahCharm->id,
+            'yarn' => 100
+        ]);
+        $charmTrade->finish([
+            'buyer_id' => $tradeManager->id
+        ]);
+        $charmTrade->save();
+        
+        ### $trader is trying to sell $inactiveHat for 50ɕ
+        $hatTrade = Trade::make();
+        $hatTrade->start([
+            'seller_id' => $trader->id,
+            'product_type' => Hat::class,
+            'product_id' => $inactiveHat->id,
+            'yarn' => 50
+        ]);
+        $hatTrade->save();
     }
 }

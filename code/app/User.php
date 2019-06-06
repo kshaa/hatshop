@@ -50,7 +50,7 @@ class User extends Authenticatable
      */
     public function createdHats()
     {
-        return $this->hasMany(Hat::class, 'creator_id');
+        return $this->hasMany(Hat::class, 'creator_id')->withTimestamps();
     }
 
     /**
@@ -58,7 +58,7 @@ class User extends Authenticatable
      */
     public function createdCharms()
     {
-        return $this->hasMany(Charm::class, 'creator_id');
+        return $this->hasMany(Charm::class, 'creator_id')->withTimestamps();
     }
 
     /**
@@ -66,7 +66,7 @@ class User extends Authenticatable
      */
     public function ownedHats()
     {
-        return $this->hasMany(Hat::class, 'owner_id');
+        return $this->hasMany(Hat::class, 'owner_id')->withTimestamps();
     }
 
     /**
@@ -74,6 +74,22 @@ class User extends Authenticatable
      */
     public function ownedCharms()
     {
-        return $this->hasMany(Charm::class, 'owner_id');
+        return $this->hasMany(Charm::class, 'owner_id')->withTimestamps();
+    }
+
+    /**
+     * All sales that belong to the user.
+     */
+    public function sales()
+    {
+        return $this->hasMany(Trade::class, 'seller_id')->withTimestamps();
+    }
+
+    /**
+     * All purchases that belong to the user.
+     */
+    public function purchases()
+    {
+        return $this->hasMany(Trade::class, 'buyer_id')->withTimestamps();
     }
 }
