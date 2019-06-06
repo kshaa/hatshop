@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Validation\ValidationException;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(Charms::class);
         $this->call(Roles::class);
         $this->call(Users::class);
-        $this->call(UserRelationships::class);
+        $this->call(UserData::class);
 
         Schema::enableForeignKeyConstraints();
     }

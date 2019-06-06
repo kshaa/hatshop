@@ -11,7 +11,7 @@ use App\CharmTrade;
 use App\UserRole;
 use App\HatCharm;
 
-class UserData extends Seeder
+class UserRelationships extends Seeder
 {
     /**
      * Run the database seeds.
