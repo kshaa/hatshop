@@ -28,5 +28,10 @@ class Roles extends Seeder
             'code' => 'trader',
             'comment' => 'Can create/import new products (charms/hats) and trade them.'
         ));
+        Role::create(array(
+            'label' => 'Great guy',
+            'code' => 'great_guy',
+            'comment' => 'No special functionality, just a great guy.'
+        ));
     }
 }

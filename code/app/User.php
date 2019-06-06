@@ -38,6 +38,11 @@ class User extends Authenticatable
     ];
 
     /**
+     * The Yarn (money) symbol
+     */
+    static $yarnSymbol = "Ҩ";
+
+    /**
      * The roles that belong to the user.
      */
     public function roles()
@@ -91,5 +96,13 @@ class User extends Authenticatable
     public function purchases()
     {
         return $this->hasMany(Trade::class, 'buyer_id');
+    }
+
+    /**
+     * Get a formatted amount of user Yarn (money)
+     */
+    public function formattedYarn()
+    {
+        return $this->yarn . self::$yarnSymbol;
     }
 }

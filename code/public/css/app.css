@@ -12,3 +12,9 @@ header.masthead {
     padding-top: 100px;
     background: transparent;
 }
+
+.yarn-amount .symbol {
+    font-size: 20px;
+    line-height: 20px;
+    color: #672d4f;
+}

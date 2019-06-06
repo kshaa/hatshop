@@ -11,7 +11,7 @@ use App\CharmTrade;
 use App\UserRole;
 use App\HatCharm;
 
-class UserRelationships extends Seeder
+class UserData extends Seeder
 {
     /**
      * Run the database seeds.
@@ -31,8 +31,10 @@ class UserRelationships extends Seeder
         $adminRole = Role::whereCode('administrator')->firstOrFail();
         $tradeManagerRole = Role::whereCode('trade_manager')->firstOrFail();
         $traderRole = Role::whereCode('trader')->firstOrFail();
+        $greatGuyRole = Role::whereCode('great_guy')->firstOrFail();
 
         $admin->roles()->attach($adminRole->id);
+        $admin->roles()->attach($greatGuyRole->id);
         $tradeManager->roles()->attach($tradeManagerRole->id);
         $trader->roles()->attach($traderRole->id);
 
