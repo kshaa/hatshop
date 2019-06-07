@@ -9,10 +9,13 @@
     <header class="masthead text-center text-white">
         <div class="masthead-content">
             <div class="container">
-                <h1 class="masthead-heading mb-0">Trade hats. 24/7. Batteries not included.</h1>
-                <a href="{{ route('register') }}" class="btn btn-primary btn-xl rounded-pill mt-5">{{ __('Join us!') }}</a>
+                <h1 class="masthead-heading mb-0">
+                    <h2>No trades happening here</h2>
+                    <a href="{{ route('home') }}" class="btn btn-primary btn-xl rounded-pill mt-5">{{ __('Lets go home!') }}</a>
+                </h1>
             </div>
         </div>
   </header>
 </div>
 @endsection
+

@@ -72,6 +72,16 @@
             </div>
         </nav>
 
+        @if ($errors->any())
+            <div class="container">
+                @foreach ($errors->all() as $error)
+                    <div class="alert alert-danger col-lg-8" role="alert">
+                        {{ $error }}
+                    </div>
+                @endforeach
+            </div>
+        @endif
+
         <main class="py-4">
             @yield('content')
         </main>

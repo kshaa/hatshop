@@ -1,7 +1,7 @@
 <ul class="list-group">
     <li class="list-group-item">
         Yarn:
-        @component('partials.yarn')
+        @component('user.partials.yarn')
             {{ $user->yarn }}
         @endcomponent
     </li>

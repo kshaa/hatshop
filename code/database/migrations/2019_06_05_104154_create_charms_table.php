@@ -15,8 +15,12 @@ class CreateCharmsTable extends Migration
     {
         Schema::create('charms', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code')->unique();
-            $table->string('label')->unique();
+            $table->string('code');
+            $table->string('label');
+            $table->string('color');
+            $table->string('power_label');
+            $table->string('power_code');
+            $table->bigInteger('power_intensity');
             $table->string('description')->nullable();
             $table->boolean('active')->default(false);
             $table->bigInteger('creator_id')->unsigned()->nullable();
