@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('trade_manager'))
+                        @if (Auth::user()->hasRole('administrator') || Auth::user()->hasRole('trade_manager'))
                             <div class="form-check">
                                 {{ Form::checkbox('active', true, $hat->active, ['id' => 'active', 'class' => 'form-check-input']) }}
                                 {{ Form::label('active', 'Is active', [ 'class' => 'form-check-label']) }}

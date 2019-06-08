@@ -21,7 +21,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        @if (Auth::user()->hasRole('admin'))
+                        @if (Auth::user()->hasRole('administrator'))
                             <div class="card">
                                 <div class="card-header">
                                     Roles

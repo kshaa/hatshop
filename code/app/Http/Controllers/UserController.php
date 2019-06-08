@@ -38,7 +38,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $originalRules = $user->rules;
         $rules = [];
-        if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('trade_manager')) {
+        if (Auth::user()->hasRole('administrator') || Auth::user()->hasRole('trade_manager')) {
             $rules['roles'] = 'array';
         }
         $rules['name'] = $originalRules['name'];

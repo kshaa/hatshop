@@ -61,7 +61,7 @@ class HatController extends Controller
         $ruleMessages = $hat->ruleMessages;
         $originalRules = $hat->rules;
         $rules = [];
-        if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('trade_manager')) {
+        if (Auth::user()->hasRole('administrator') || Auth::user()->hasRole('trade_manager')) {
             $rules['active'] = $originalRules['active'];
         }
         $rules['charms'] = 'array';

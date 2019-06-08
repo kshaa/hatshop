@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="card-body">
-                    @if ($user->id === Auth::user()->id || Auth::user()->hasRole('admin'))
+                    @if ($user->id === Auth::user()->id || Auth::user()->hasRole('administrator'))
                         <div class="text-right mb-3">
                             <a href="{{ route('user_edit', [ 'id' => $user->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit user</a>
                         </div>
