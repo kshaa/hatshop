@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    @if ($hat->owner_id === Auth::user()->id)
+                    @if ($hat->owner_id === Auth::user()->id || Auth::user()->hasRole('administrator'))
                         <div class="text-right mb-3">
                             <a href="{{ route('hat_edit', [ 'id' => $hat->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit hat</a>
                             <a href="{{ route('hat_delete', [ 'id' => $hat->id ]) }}"

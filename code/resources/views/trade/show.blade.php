@@ -11,7 +11,7 @@
                 <div class="card-body">
                     @if (!$trade->buyer_id)
                         <div class="text-right mb-3">
-                            @if ($trade->seller_id === Auth::user()->id)
+                            @if ($trade->seller_id === Auth::user()->id || Auth::user()->hasRole('administrator'))
                                 <a href="{{ route('trade_edit', [ 'id' => $trade->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit trade</a>
                                 <a href="{{ route('trade_delete', [ 'id' => $trade->id ]) }}"
                                     class="btn btn-danger col-md-3 mb-1"

@@ -15,7 +15,7 @@
                         </div>
                     @endif
 
-                    @if ($charm->owner_id === Auth::user()->id)
+                    @if ($charm->owner_id === Auth::user()->id || Auth::user()->hasRole('administrator'))
                         <div class="text-right mb-3">
                             <a href="{{ route('charm_edit', [ 'id' => $charm->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit charm</a>
                             <a href="{{ route('charm_delete', [ 'id' => $charm->id ]) }}"
