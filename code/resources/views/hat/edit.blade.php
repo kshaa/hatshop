@@ -40,6 +40,26 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if (count($hat->owner->ownedCharms) > 0) 
+                            <div class="card">
+                                <div class="card-header">
+                                    Connected charms
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group" id="charm-group">
+                                        @foreach ($hat->owner->ownedCharms as $charm)
+                                            <div class="form-check">
+                                                {{ Form::checkbox('charms[]', $charm->id, $hat->hasCharm($charm->code), [ 'id' => 'charm_' . $charm->id ,'class' => 'form-check-input']) }}
+                                                {{ Form::label('charm_' . $charm->id, $charm->label, [ 'class' => 'form-check-label']) }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        @endif
+
                         {{ Form::submit('Update', [ 'class' => 'btn btn-primary btn-sm' ]) }}
                     </div>
                 {{ Form::close() }}

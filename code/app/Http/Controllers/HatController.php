@@ -64,6 +64,7 @@ class HatController extends Controller
         if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('trade_manager')) {
             $rules['active'] = $originalRules['active'];
         }
+        $rules['charms'] = 'array';
         $rules['label'] = $originalRules['label'];
         $rules['description'] = $originalRules['description'];
         $validatedData = $request->validate(
@@ -72,9 +73,15 @@ class HatController extends Controller
         );
 
         # Update and save model
+        ## Update hat relations
+        $charms = array_key_exists('charms', $validatedData) ? $validatedData['charms'] : [];
+        $hat->charms()->sync($charms);
+        
+        ## Update general info
         $hat->active = array_key_exists('active', $validatedData) && $validatedData['active'];
         $hat->label = $validatedData['label'];
         $hat->description = $validatedData['description'];
+
         $hat->save();
 
         # Respond with a redirect to the newly created model

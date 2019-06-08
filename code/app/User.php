@@ -11,6 +11,15 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * User creation validation rules and corresponding messages
+     */
+    public $rules = [
+        'info' => 'required|string',
+        'name' => 'required|string',
+        'surname' => 'required|string'
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -58,6 +67,14 @@ class User extends Authenticatable
         $roleQuery = $this->roles()->where('code', '=', $roleCode)->get();
 
         return count($roleQuery) > 0;
+    }
+
+    /**
+     * All roles that a user could theoretically have
+     */
+    public function availableRoles()
+    {
+        return Role::all();
     }
 
     /**

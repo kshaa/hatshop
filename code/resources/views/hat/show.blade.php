@@ -47,6 +47,24 @@
                             Creator: <a href="{{ route('user_show', ['id' => $creator->id]) }}">{{ $creator->name }}</a>
                         </li>
                     </ul>
+                    <br>
+
+                    @if (count($hat->charms) > 0)
+                        <div class="card">
+                            <div class="card-header">
+                                Connected charms
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    @foreach ($hat->charms as $charm)
+                                        <li class="list-group-item">
+                                            <a href="{{ route('charm_show', ['id' => $charm->id]) }}">{{ $charm->label }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

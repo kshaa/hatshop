@@ -47,4 +47,13 @@ class Hat extends Product
     {
         return Storage::url($this->model_path);
     }
+
+    /**
+     * Check if charm is connected to a certain hat
+     */
+    public function hasCharm($charmCode) {
+        $charmQuery = $this->charms()->where('code', '=', $charmCode)->get();
+
+        return count($charmQuery) > 0;
+    }
 }

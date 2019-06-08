@@ -41,7 +41,7 @@ class Charm extends Product
      */
     public function hats()
     {
-        return $this->belongsToMany(User::class, 'hat_charms', 'hat_id', 'charm_id')->withTimestamps();
+        return $this->belongsToMany(Hat::class, 'hat_charms', 'hat_id', 'charm_id')->withTimestamps();
     }
 
     /**
@@ -56,5 +56,14 @@ class Charm extends Product
         }
 
         return $this;
+    }
+
+    /**
+     * Check if charm is connected to a certain hat
+     */
+    public function hasHat($hatCode) {
+        $hatQuery = $this->hats()->where('code', '=', $hatCode)->get();
+
+        return count($hatQuery) > 0;
     }
 }

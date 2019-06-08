@@ -30,7 +30,7 @@
                             @endif
                         @endif
 
-                        <div class="card mb-4">
+                        <div class="card">
                             <div class="card-body">
                                 <div class="form-group row">
                                     {{ Form::label('description', 'Description', [ 'class' => 'col-md-4 col-form-label text-md-right']) }}
@@ -51,6 +51,27 @@
                                 </div>
                             </div>
                         </div>
+                        <br>
+
+                        @if (count($charm->owner->ownedHats) > 0) 
+                            <div class="card">
+                                <div class="card-header">
+                                    Connected hats
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group" id="hat-group">
+                                        @foreach ($charm->owner->ownedHats as $hat)
+                                            <div class="form-check">
+                                                {{ Form::checkbox('hats[]', $hat->id, $charm->hasHat($hat->code), [ 'id' => 'hat_' . $hat->id ,'class' => 'form-check-input']) }}
+                                                {{ Form::label('hat_' . $hat->id, $hat->label, [ 'class' => 'form-check-label']) }}
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        @endif
+
                         {{ Form::submit('Update', [ 'class' => 'btn btn-primary btn-sm' ]) }}
                     </div>
                 {{ Form::close() }}

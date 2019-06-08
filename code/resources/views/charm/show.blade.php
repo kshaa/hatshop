@@ -38,7 +38,7 @@
                         </div>
                     </div>
 
-                    <ul class="list-group">
+                    <ul class="list-group mb-4">
                         <li class="list-group-item">
                             Power: <span>{{ $charm->power_label }}</a>
                         </li>
@@ -52,6 +52,23 @@
                             Creator: <a href="{{ route('user_show', ['id' => $creator->id]) }}">{{ $creator->name }}</a>
                         </li>
                     </ul>
+
+                    @if (count($charm->hats) > 0)
+                        <div class="card">
+                            <div class="card-header">
+                                Connected hats
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group">
+                                    @foreach ($charm->hats as $hat)
+                                        <li class="list-group-item">
+                                            <a href="{{ route('hat_show', ['id' => $hat->id]) }}">{{ $hat->label }}</a>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

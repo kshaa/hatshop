@@ -92,6 +92,7 @@ class CharmController extends Controller
         if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('trade_manager')) {
             $rules['active'] = $originalRules['active'];
         }
+        $rules['hats'] = 'array';
         $rules['label'] = $originalRules['label'];
         $rules['description'] = $originalRules['description'];
         $rules['color'] = $originalRules['color'];
@@ -101,10 +102,16 @@ class CharmController extends Controller
         );
 
         # Update and save model
+        ## Update hat relations
+        $hats = array_key_exists('hats', $validatedData) ? $validatedData['hats'] : [];
+        $charm->hats()->sync($hats);
+
+        ## Update general info
         $charm->active = array_key_exists('active', $validatedData) && $validatedData['active'];
         $charm->label = $validatedData['label'];
         $charm->description = $validatedData['description'];
         $charm->color = $validatedData['color'];
+
         $charm->save();
 
         # Respond with a redirect to the newly created model

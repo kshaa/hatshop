@@ -10,6 +10,10 @@
                 </div>
                 <div class="card-body">
                     {{ Form::open([ 'route' => 'trade_create', 'id' => 'trade_create_form', 'enctype' => 'multipart/form-data' ]) }}
+                        <div class="alert alert-secondary">
+                            Note that trading a hat will remove all connections to its charms and vice versa.
+                        </div>
+                        <br>
                         <div class="form-group">
                             {{ Form::label('charm_or_hat', 'Trade charm or hat?') }}
                             <div class="form-check">
