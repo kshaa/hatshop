@@ -16,10 +16,18 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        @if (!$hat->active)
-                            <div class="alert alert-secondary">
-                                This charm is inactive, it can be activated by a trade manager.
+                        @if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('trade_manager'))
+                            <div class="form-check">
+                                {{ Form::checkbox('active', true, $hat->active, ['id' => 'active', 'class' => 'form-check-input']) }}
+                                {{ Form::label('active', 'Is active', [ 'class' => 'form-check-label']) }}
                             </div>
+                            <br>
+                        @else
+                            @if (!$hat->active)
+                                <div class="alert alert-secondary">
+                                    This charm is inactive, it can be activated by a trade manager.
+                                </div>
+                            @endif
                         @endif
 
                         <div class="card mb-4">

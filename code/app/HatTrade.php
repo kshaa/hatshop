@@ -25,7 +25,7 @@ class HatTrade  extends Trade
      * - Create a new trade record
      */
     public function start($data = []) {
-        $data['product_type'] = self::class;
+        $data['product_type'] = Hat::class;
 
         parent::start($data);
     }

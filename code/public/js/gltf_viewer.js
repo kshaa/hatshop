@@ -24,6 +24,10 @@ function resizeUpdate(resizeContext) {
     }
 }    
 
+function tagBadContainer(container) {
+    container.classList.add('failed-render');
+}
+
 // simplified on three.js/examples/webgl_loader_gltf2.html                        
 function init_gltf_viewer(container, gltfUrl) {
     // renderer                                                                 
@@ -82,6 +86,10 @@ function init_gltf_viewer(container, gltfUrl) {
         
         scene.add(gltf.scene);
         objs.push({gltf, mixer});
+
+        resizeUpdate(resizeContext);
+    }, null, () => {
+        tagBadContainer(container);
     });
 
     // animation rendering                                                      

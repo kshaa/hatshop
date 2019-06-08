@@ -16,6 +16,7 @@
     <script src="{{ asset('js/gltf_loader.js') }}" defer></script>
     <script src="{{ asset('js/gltf_viewer.js') }}" defer></script>
     <script src="{{ asset('js/model_widget.js') }}" defer></script>
+    <script src="{{ asset('js/toggle_trade_form.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

@@ -16,11 +16,7 @@
                         <div class="row">
                             @foreach ($charms as $charm)
                                 <div class="col-sm-4 mb-4 {{ $charm->active ? '' : 'inactive-model' }}">
-                                    <div class="charm card">
-                                        <div class="card-header"><a href="{{ route('charm_show', ['id' => $charm->id]) }}">{{ $charm->label }}</a></div>
-                                        <div class="card-body">{{ $charm->description }}</div>
-                                        <div class="card-header" style="background: {{ $charm->color }};"></div>
-                                    </div>
+                                    @include('charm.partials.card', ['charm' => $charm])
                                 </div>
                             @endforeach
                         </div>

@@ -89,6 +89,9 @@ class CharmController extends Controller
         $ruleMessages = $charm->ruleMessages;
         $originalRules = $charm->rules;
         $rules = [];
+        if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('trade_manager')) {
+            $rules['active'] = $originalRules['active'];
+        }
         $rules['label'] = $originalRules['label'];
         $rules['description'] = $originalRules['description'];
         $rules['color'] = $originalRules['color'];
@@ -98,6 +101,7 @@ class CharmController extends Controller
         );
 
         # Update and save model
+        $charm->active = array_key_exists('active', $validatedData) && $validatedData['active'];
         $charm->label = $validatedData['label'];
         $charm->description = $validatedData['description'];
         $charm->color = $validatedData['color'];

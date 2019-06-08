@@ -51,6 +51,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user has a certain role
+     */
+    public function hasRole($roleCode)
+    {
+        $roleQuery = $this->roles()->where('code', '=', $roleCode)->get();
+
+        return count($roleQuery) > 0;
+    }
+
+    /**
      * All hats that have been created by the user.
      */
     public function createdHats()

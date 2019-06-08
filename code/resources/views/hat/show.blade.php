@@ -15,17 +15,19 @@
                         </div>
                     @endif
 
-                    <div class="text-right mb-3">
-                        <a href="{{ route('hat_edit', [ 'id' => $hat->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit hat</a>
-                        <a href="{{ route('hat_delete', [ 'id' => $hat->id ]) }}"
-                            class="btn btn-danger col-md-3 mb-1"
-                            onclick="event.preventDefault(); document.getElementById('delete-hat-form').submit();">
-                            Delete hat
-                        </a>
-                        <form id="delete-hat-form" action="{{ route('hat_delete', [ 'id' => $hat->id ]) }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
+                    @if ($hat->owner_id === Auth::user()->id)
+                        <div class="text-right mb-3">
+                            <a href="{{ route('hat_edit', [ 'id' => $hat->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit hat</a>
+                            <a href="{{ route('hat_delete', [ 'id' => $hat->id ]) }}"
+                                class="btn btn-danger col-md-3 mb-1"
+                                onclick="event.preventDefault(); document.getElementById('delete-hat-form').submit();">
+                                Delete hat
+                            </a>
+                            <form id="delete-hat-form" action="{{ route('hat_delete', [ 'id' => $hat->id ]) }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    @endif
 
                     <div class="card mb-4">
                         <div>
@@ -36,7 +38,6 @@
                             <p>{{ $hat->description }}</p>
                         </div>
                     </div>
-
 
                     <ul class="list-group">
                         <li class="list-group-item">

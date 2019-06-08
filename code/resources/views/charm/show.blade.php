@@ -15,17 +15,19 @@
                         </div>
                     @endif
 
-                    <div class="text-right mb-3">
-                        <a href="{{ route('charm_edit', [ 'id' => $charm->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit charm</a>
-                        <a href="{{ route('charm_delete', [ 'id' => $charm->id ]) }}"
-                            class="btn btn-danger col-md-3 mb-1"
-                            onclick="event.preventDefault(); document.getElementById('delete-charm-form').submit();">
-                            Delete charm
-                        </a>
-                        <form id="delete-charm-form" action="{{ route('charm_delete', [ 'id' => $charm->id ]) }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </div>
+                    @if ($charm->owner_id === Auth::user()->id)
+                        <div class="text-right mb-3">
+                            <a href="{{ route('charm_edit', [ 'id' => $charm->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit charm</a>
+                            <a href="{{ route('charm_delete', [ 'id' => $charm->id ]) }}"
+                                class="btn btn-danger col-md-3 mb-1"
+                                onclick="event.preventDefault(); document.getElementById('delete-charm-form').submit();">
+                                Delete charm
+                            </a>
+                            <form id="delete-charm-form" action="{{ route('charm_delete', [ 'id' => $charm->id ]) }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    @endif
 
                     <div class="card mb-4">
                         <div class="card-body">

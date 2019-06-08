@@ -28,14 +28,21 @@ class Trade extends Model
      * The user who bought this trade product
      */
     public function buyer() {
-        return $this->belongsTo(User::class)->withTimestamps();
+        return $this->belongsTo(User::class);
     }
 
     /**
      * The user who is selling/sold this trade product
      */
     public function seller() {
-        return $this->belongsTo(User::class)->withTimestamps();
+        return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the product being traded
+     */
+    public function product() {
+        return $this->morphTo();
     }
 
     /**

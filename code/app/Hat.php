@@ -13,6 +13,7 @@ class Hat extends Product
         'creator_id' => 'required|integer|exists:users,id',
         'owner_id' => 'required|integer|exists:users,id',
         'label' => 'required|string',
+        'active' => 'boolean',
         'code' => [ 'required', 'string', 'regex:/^([a-z]|_|[0-9])+$/', 'unique:charms,code' ],
         'description' => 'required|string',
         'model_path' => 'required|string',
@@ -21,6 +22,14 @@ class Hat extends Product
     public $ruleMessages = [
         'code.regex' => "Code must be formatted using lowercase letters, digits and underscores.",
     ];
+
+    /**
+     * Get all trades of this product.
+     */
+    public function trades()
+    {
+        return $this->morphMany(Trade::class, 'product');
+    }
 
     /**
      * All charms that are attached to this hat.

@@ -30,6 +30,7 @@ Route::post('/trade/create', 'TradeController@create')->name('trade_create')->mi
 Route::get('/trade/{id}', 'TradeController@show')->name('trade_show')->middleware('auth');
 Route::get('/trade/{id}/edit', 'TradeController@edit')->name('trade_edit')->middleware('auth');
 Route::post('/trade/{id}/update', 'TradeController@update')->name('trade_update')->middleware('auth');
+Route::post('/trade/{id}/complete', 'TradeController@complete')->name('trade_complete')->middleware('auth');
 Route::post('/trade/{id}/delete', 'TradeController@delete')->name('trade_delete')->middleware('auth');
 
 Route::get('/hat', 'HatController@index')->name('hat_index')->middleware('auth');

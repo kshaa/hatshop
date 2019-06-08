@@ -15,11 +15,8 @@
                     @if (count($hats) > 0)
                         <div class="row">
                             @foreach ($hats as $hat)
-                                <div class="col-sm-4 mb-4 {{ $hat->active ? '' : 'inactive-model' }}">
-                                    <div class="hat card">
-                                        <div class="card-header"><a href="{{ route('hat_show', ['id' => $hat->id]) }}">{{ $hat->label }}</a></div>
-                                        <div class="card-body">{{ $hat->description }}</div>
-                                    </div>
+                                <div class="col-sm-6 mb-4 {{ $hat->active ? '' : 'inactive-model' }}">
+                                    @include('hat.partials.card', ['hat' => $hat])
                                 </div>
                             @endforeach
                         </div>

@@ -61,6 +61,9 @@ class HatController extends Controller
         $ruleMessages = $hat->ruleMessages;
         $originalRules = $hat->rules;
         $rules = [];
+        if (Auth::user()->hasRole('admin') || Auth::user()->hasRole('trade_manager')) {
+            $rules['active'] = $originalRules['active'];
+        }
         $rules['label'] = $originalRules['label'];
         $rules['description'] = $originalRules['description'];
         $validatedData = $request->validate(
@@ -69,6 +72,7 @@ class HatController extends Controller
         );
 
         # Update and save model
+        $hat->active = array_key_exists('active', $validatedData) && $validatedData['active'];
         $hat->label = $validatedData['label'];
         $hat->description = $validatedData['description'];
         $hat->save();
