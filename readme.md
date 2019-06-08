@@ -15,6 +15,9 @@ docker-compose up -d
 # Create a new Laravel application codebase named "myapp"
 docker-compose run php createapp myapp
 
+# Link hat model storage as public
+docker-compose run php artisan storage:link
+
 # Run Laravel Artisan CLI commands
 docker-compose run php artisan [...] 
 ```

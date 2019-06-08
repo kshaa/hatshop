@@ -175,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Zip functionality used for hat models
+         */
+        Chumper\Zipper\ZipperServiceProvider::class
     ],
 
     /*
@@ -226,6 +230,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        // Used for hat models
+        'Zipper' => Chumper\Zipper\Zipper::class
     ],
 
 ];

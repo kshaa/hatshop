@@ -11,6 +11,11 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/dom_ready.js') }}" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/105/three.min.js" defer></script>
+    <script src="{{ asset('js/gltf_loader.js') }}" defer></script>
+    <script src="{{ asset('js/gltf_viewer.js') }}" defer></script>
+    <script src="{{ asset('js/model_widget.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -74,11 +79,15 @@
 
         @if ($errors->any())
             <div class="container">
-                @foreach ($errors->all() as $error)
-                    <div class="alert alert-danger col-lg-8" role="alert">
-                        {{ $error }}
+                <div class="row justify-content-center">
+                    <div class="col-lg-8">
+                        @foreach ($errors->all() as $error)
+                            <div class="alert alert-danger" role="alert">
+                                {{ $error }}
+                            </div>
+                        @endforeach
                     </div>
-                @endforeach
+                </div> 
             </div>
         @endif
 

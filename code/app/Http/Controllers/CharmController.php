@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use Illuminate\Support\Facades\Input;
 use App\Charm;
 
 class CharmController extends Controller

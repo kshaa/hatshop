@@ -6,43 +6,39 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    {{ $charm->label }}
+                    {{ $hat->label }}
                 </div>
                 <div class="card-body">
-                    @if (!$charm->active)
+                    @if (!$hat->active)
                         <div class="alert alert-secondary">
-                            This charm is inactive, it can be activated by a trade manager.
+                            This hat is inactive, it can be activated by a trade manager.
                         </div>
                     @endif
 
                     <div class="text-right mb-3">
-                        <a href="{{ route('charm_edit', [ 'id' => $charm->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit charm</a>
-                        <a href="{{ route('charm_delete', [ 'id' => $charm->id ]) }}"
+                        <a href="{{ route('hat_edit', [ 'id' => $hat->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit hat</a>
+                        <a href="{{ route('hat_delete', [ 'id' => $hat->id ]) }}"
                             class="btn btn-danger col-md-3 mb-1"
-                            onclick="event.preventDefault(); document.getElementById('delete-charm-form').submit();">
-                            Delete charm
+                            onclick="event.preventDefault(); document.getElementById('delete-hat-form').submit();">
+                            Delete hat
                         </a>
-                        <form id="delete-charm-form" action="{{ route('charm_delete', [ 'id' => $charm->id ]) }}" method="POST" style="display: none;">
+                        <form id="delete-hat-form" action="{{ route('hat_delete', [ 'id' => $hat->id ]) }}" method="POST" style="display: none;">
                             @csrf
                         </form>
                     </div>
 
                     <div class="card mb-4">
-                        <div class="card-body">
-                            <h5>{{ $charm->label }}</h5>
-                            <p>{{ $charm->description }}</p>
+                        <div>
+                            <div class="hat-model-widget" data-model-url="{{ url($hat->hatModelUrl()) }}"></div>
                         </div>
-                        <div class="card-header" style="background: {{ $charm->color }};">
+                        <div class="card-body">
+                            <h5>{{ $hat->label }}</h5>
+                            <p>{{ $hat->description }}</p>
                         </div>
                     </div>
 
+
                     <ul class="list-group">
-                        <li class="list-group-item">
-                            Power: <span>{{ $charm->power_label }}</a>
-                        </li>
-                        <li class="list-group-item">
-                            Power intensity: <span>{{ $charm->power_intensity }}</a>
-                        </li>
                         <li class="list-group-item">
                             Owner: <a href="{{ route('user_show', ['id' => $owner->id]) }}">{{ $owner->name }}</a>
                         </li>

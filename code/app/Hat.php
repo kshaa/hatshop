@@ -2,13 +2,40 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\Storage;
+
 class Hat extends Product
 {
+    /**
+     * Hat creation validation rules and corresponding messages
+     */
+    public $rules = [
+        'creator_id' => 'required|integer|exists:users,id',
+        'owner_id' => 'required|integer|exists:users,id',
+        'label' => 'required|string',
+        'code' => [ 'required', 'string', 'regex:/^([a-z]|_|[0-9])+$/', 'unique:charms,code' ],
+        'description' => 'required|string',
+        'model_path' => 'required|string',
+        'model_archive' => 'required|file|mimes:zip|max:2048',
+    ];
+    public $ruleMessages = [
+        'code.regex' => "Code must be formatted using lowercase letters, digits and underscores.",
+    ];
+
     /**
      * All charms that are attached to this hat.
      */
     public function charms()
     {
         return $this->belongsToMany(Charm::class, 'hat_charms', 'charm_id', 'hat_id')->withTimestamps();
+    }
+
+    /**
+     * Return a public URL to the model
+     * Scheme and host not included
+     */
+    public function hatModelUrl()
+    {
+        return Storage::url($this->model_path);
     }
 }
