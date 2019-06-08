@@ -37,7 +37,7 @@
                             {{ Form::label('model_archive', 'Model archive', [ 'class' => 'col-md-4 col-form-label text-md-right']) }}
                             <div class="col-md-6">
                                 {{ Form::file('model_archive') }}
-                                <small id="model_archive_info" class="form-text text-muted">Please upload a valid zip archive. Size of archive should not be more than 2MB.</small>
+                                <small id="model_archive_info" class="form-text text-muted">Please upload a valid zip archive. Size of archive should not be more than 10MB.</small>
                                 <small id="model_archive_info" class="form-text text-muted">Archive should contain a flat directory with a 3D model file with a 'gltf' extension.</small>
                             </div>
                         </div>

@@ -16,7 +16,7 @@ class Hat extends Product
         'code' => [ 'required', 'string', 'regex:/^([a-z]|_|[0-9])+$/', 'unique:charms,code' ],
         'description' => 'required|string',
         'model_path' => 'required|string',
-        'model_archive' => 'required|file|mimes:zip|max:2048',
+        'model_archive' => 'required|file|mimes:zip|max:10240',
     ];
     public $ruleMessages = [
         'code.regex' => "Code must be formatted using lowercase letters, digits and underscores.",

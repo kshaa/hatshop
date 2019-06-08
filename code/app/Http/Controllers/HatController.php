@@ -42,8 +42,43 @@ class HatController extends Controller
         return view('hat/new');
     }
 
+
     /**
-     * Serve new charm form
+     * Edit a hat
+     */
+    public function edit($id) {
+        $hat = Hat::findOrFail($id);
+
+        return view('hat/edit', [ 'hat' => $hat ]);
+    }
+
+    /**
+     * Update a hat
+     */
+    public function update(Request $request, $id) {
+        # Validate data
+        $hat = Hat::findOrFail($id);
+        $ruleMessages = $hat->ruleMessages;
+        $originalRules = $hat->rules;
+        $rules = [];
+        $rules['label'] = $originalRules['label'];
+        $rules['description'] = $originalRules['description'];
+        $validatedData = $request->validate(
+            $rules,
+            $ruleMessages
+        );
+
+        # Update and save model
+        $hat->label = $validatedData['label'];
+        $hat->description = $validatedData['description'];
+        $hat->save();
+
+        # Respond with a redirect to the newly created model
+        return redirect()->route('hat_show', ['id' => $hat->id]);
+    }
+
+    /**
+     * Serve new hat form
      */
     public function create(Request $request) {
         # Validate data
