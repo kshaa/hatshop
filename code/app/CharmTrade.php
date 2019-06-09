@@ -67,12 +67,14 @@ class CharmTrade extends Trade
         # Give money to seller   
         parent::complete($data);
 
-        # Remove all relationships to previous hats
-        HatCharm::where('charm_id', $this->product_id)->delete();
+        $tradedCharm = Charm::find($this->product_id);
 
         # Transfer ownership
-        $tradedCharm = Charm::find($this->product_id);
         $tradedCharm->owner_id = $this->buyer_id;
+
+        # Remove all relationships to previous hats
+        $tradedCharm->hats()->sync([]);
+        
         $tradedCharm->save();
 
         return $this;

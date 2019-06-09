@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
         // Disable foreign key check for this connection before running seeders
         Schema::disableForeignKeyConstraints();
 
+        $this->call(Users::class);
         $this->call(Hats::class);
         $this->call(Charms::class);
         $this->call(Roles::class);
-        $this->call(Users::class);
         $this->call(UserData::class);
 
         Schema::enableForeignKeyConstraints();

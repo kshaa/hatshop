@@ -20,8 +20,8 @@ class CreateHatsTable extends Migration
             $table->string('description')->nullable();
             $table->string('model_path')->nullable();
             $table->boolean('active')->default(false);
-            $table->bigInteger('creator_id')->unsigned()->nullable();
-            $table->bigInteger('owner_id')->unsigned()->nullable();
+            $table->bigInteger('creator_id')->unsigned();
+            $table->bigInteger('owner_id')->unsigned();
             $table->timestamps();
         });
 

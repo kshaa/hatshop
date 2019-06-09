@@ -67,12 +67,14 @@ class HatTrade  extends Trade
         # Give money to seller   
         parent::complete($data);
 
-        # Remove all relationships to previous charms
-        HatCharm::where('hat_id', $this->product_id)->delete();
+        $tradedHat = Hat::find($this->product_id);
 
         # Transfer ownership
-        $tradedHat = Hat::find($this->product_id);
         $tradedHat->owner_id = $this->buyer_id;
+
+        # Remove all relationships to previous charms
+        $tradedHat->charms()->sync([]);
+
         $tradedHat->save();
 
         return $this;

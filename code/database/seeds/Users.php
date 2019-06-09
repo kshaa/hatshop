@@ -40,5 +40,14 @@ class Users extends Seeder
             'password' => bcrypt('secret'),
             'yarn' => 200.25
         ));
+        
+        $temp = User::create(array(
+            'name' => 'Temp',
+            'surname' => 'Tempinson',
+            'info'=> 'Burn quick and bright!.',
+            'email' => 'temp@hatshop.test', 
+            'password' => bcrypt('secret'),
+            'yarn' => 200.25
+        ));
     }
 }

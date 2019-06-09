@@ -22,8 +22,8 @@ class CharmController extends Controller
      */
     public function show($id) {
         $charm = Charm::findOrFail($id);
-        $owner = $charm->owner()->first();
-        $creator = $charm->creator()->first();
+        $owner = $charm->owner;
+        $creator = $charm->creator;
 
         return view('charm/show', [
             'charm' => $charm,
