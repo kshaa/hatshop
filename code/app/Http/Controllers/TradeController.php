@@ -9,6 +9,8 @@ use App\HatTrade;
 use App\Hat;
 use App\Charm;
 use Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\UnauthorizedException;
 
 class TradeController extends Controller
 {
@@ -66,6 +68,14 @@ class TradeController extends Controller
     public function edit($id) {
         $trade = Trade::findOrFail($id);
 
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('user-role', ['trade_manager']) &&
+            Gate::denies('model-owner', $trade->seller)
+        ) {
+            throw new UnauthorizedException();
+        }
+
         return view('trade/edit', [ 'trade' => $trade ]);
     }
 
@@ -73,8 +83,16 @@ class TradeController extends Controller
      * Update a trade
      */
     public function update(Request $request, $id) {
-        # Validate data
         $trade = Trade::findOrFail($id);
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('user-role', ['trade_manager']) &&
+            Gate::denies('model-owner', $trade->seller)
+        ) {
+            throw new UnauthorizedException();
+        }
+
+        # Validate data
         $rules = [
             'yarn' => 'required|integer'
         ];
@@ -153,6 +171,14 @@ class TradeController extends Controller
      */
     public function delete($id) {
         $trade = Trade::findOrFail($id);
+
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('model-owner', $trade->seller)
+        ) {
+            throw new UnauthorizedException();
+        }
+
         $trade->delete();
 
         return redirect()->route('trade_index');

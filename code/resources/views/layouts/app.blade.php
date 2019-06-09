@@ -78,7 +78,7 @@
             </div>
         </nav>
 
-        @if ($errors->any())
+        @if (!empty($errors) && $errors->any())
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-8">

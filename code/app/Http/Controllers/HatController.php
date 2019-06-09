@@ -8,6 +8,8 @@ use Auth;
 use App\Hat;
 use Illuminate\Support\Facades\Storage;
 use Chumper\Zipper\Zipper;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\UnauthorizedException;
 
 class HatController extends Controller
 {
@@ -49,6 +51,14 @@ class HatController extends Controller
     public function edit($id) {
         $hat = Hat::findOrFail($id);
 
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('user-role', ['trade_manager']) &&
+            Gate::denies('model-owner', $hat->owner)
+        ) {
+            throw new UnauthorizedException();
+        }
+
         return view('hat/edit', [ 'hat' => $hat ]);
     }
 
@@ -56,8 +66,17 @@ class HatController extends Controller
      * Update a hat
      */
     public function update(Request $request, $id) {
-        # Validate data
         $hat = Hat::findOrFail($id);
+
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('user-role', ['trade_manager']) &&
+            Gate::denies('model-owner', $hat->owner)
+        ) {
+            throw new UnauthorizedException();
+        }
+
+        # Validate data
         $ruleMessages = $hat->ruleMessages;
         $originalRules = $hat->rules;
         $rules = [];
@@ -137,6 +156,12 @@ class HatController extends Controller
      */
     public function delete($id) {
         $hat = Hat::findOrFail($id);
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('model-owner', $hat->owner)
+        ) {
+            throw new UnauthorizedException();
+        }
         $hat->delete();
 
         return redirect()->route('hat_index');

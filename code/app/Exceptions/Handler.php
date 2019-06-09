@@ -4,6 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\UnauthorizedException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Illuminate\Support\Facades\App;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +49,21 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        $exceptionClass = get_class($exception);
+        switch ($exceptionClass) {
+            case UnauthorizedException::class:
+                return response()->view('errors.custom', ['message' => 'Unauthorized request!'], 401);
+                break;
+            case MethodNotAllowedHttpException::class:
+                return response()->view('errors.custom', ['message' => 'The HTTP verb you used is not allowed here'], 405);
+                break;
+        }
+
+        $env = App::environment();
+        if ($env === 'production' || $env == 'staging') {
+            return response()->view('errors.custom', ['message' => 'There were problems serving this page :('], 500);
+        }
+
         return parent::render($request, $exception);
     }
 }

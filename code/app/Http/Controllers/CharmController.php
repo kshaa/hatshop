@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Charm;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\UnauthorizedException;
 
 class CharmController extends Controller
 {
@@ -77,6 +79,14 @@ class CharmController extends Controller
     public function edit($id) {
         $charm = Charm::findOrFail($id);
 
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('user-role', ['trade_manager']) &&
+            Gate::denies('model-owner', $charm->owner)
+        ) {
+            throw new UnauthorizedException();
+        }
+
         return view('charm/edit', [ 'charm' => $charm ]);
     }
 
@@ -84,8 +94,17 @@ class CharmController extends Controller
      * Update a charm
      */
     public function update(Request $request, $id) {
-        # Validate data
         $charm = Charm::findOrFail($id);
+
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('user-role', ['trade_manager']) &&
+            Gate::denies('model-owner', $charm->owner)
+        ) {
+            throw new UnauthorizedException();
+        }
+
+        # Validate data
         $ruleMessages = $charm->ruleMessages;
         $originalRules = $charm->rules;
         $rules = [];
@@ -123,6 +142,14 @@ class CharmController extends Controller
      */
     public function delete($id) {
         $charm = Charm::findOrFail($id);
+
+        if (
+            Gate::denies('user-role', ['administrator']) &&
+            Gate::denies('model-owner', $charm->owner)
+        ) {
+            throw new UnauthorizedException();
+        }
+
         $charm->delete();
 
         return redirect()->route('charm_index');
