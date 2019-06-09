@@ -9,6 +9,17 @@ use Auth;
 class UserController extends Controller
 {
     /**
+     * Show list of users
+     */
+    public function index() {
+        $users = User::where('id', '<>', Auth::user()->id)->get();
+
+        return view('user/index', [
+            'users' => $users,
+        ]);
+    }
+
+    /**
      * Show info about a specific charm
      */
     public function show($id) {

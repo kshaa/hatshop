@@ -22,6 +22,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 # Every model almost (browsers don't do PUT & DELETE) follows the 7 RESTful routes
 # If this were raw API routes, resource routes could've been used
 # Reference - https://laravel.com/docs/5.0/controllers#restful-resource-controllers
+Route::get('/user', 'UserController@index')->name('user_index')->middleware('auth');
 Route::get('/user/{id}', 'UserController@show')->name('user_show')->middleware('auth');
 Route::get('/user/{id}/edit', 'UserController@edit')->name('user_edit')->middleware('auth');
 Route::post('/user/{id}/update', 'UserController@update')->name('user_update')->middleware('auth');

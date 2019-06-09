@@ -63,6 +63,9 @@
                             <a class="nav-link" href="{{ route('charm_index') }}">{{ __('Charms') }}</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user_index') }}">{{ __('Users') }}</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
