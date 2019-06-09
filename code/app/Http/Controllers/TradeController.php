@@ -133,16 +133,18 @@ class TradeController extends Controller
         $trade = Trade::make();
         $rules = [
             'charm_or_hat' => 'required|string|in:charm,hat',
-            'hat_id' => 'integer',
-            'charm_id' => 'integer',
             'yarn' => 'required|integer'
         ];
+        $user = Auth::user();
         $validatedData = $request->validate(
             $rules
         );
-        $user = Auth::user();
 
         if ($validatedData['charm_or_hat'] == 'charm') {
+            $rules['charm_id'] = 'required|integer|exists:charm,id';
+            $validatedData = $request->validate(
+                $rules
+            );
             $charmTrade = CharmTrade::make();
             $charmTrade->start([
                 'seller_id' => $user->id,
@@ -150,6 +152,10 @@ class TradeController extends Controller
                 'yarn' => $validatedData['yarn']
             ]);
         } else if ($validatedData['charm_or_hat'] == 'hat') {
+            $rules['hat_id'] = 'required|integer|exists:hats,id';
+            $validatedData = $request->validate(
+                $rules
+            );
             $hatTrade = HatTrade::make();
             $hatTrade->start([
                 'seller_id' => $user->id,
