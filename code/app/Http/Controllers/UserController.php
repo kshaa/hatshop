@@ -38,7 +38,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $originalRules = $user->rules;
         $rules = [];
-        if (Auth::user()->hasRole('administrator') || Auth::user()->hasRole('trade_manager')) {
+        if (Auth::user()->hasRole('administrator')) {
             $rules['roles'] = 'array';
         }
         $rules['name'] = $originalRules['name'];
@@ -49,9 +49,11 @@ class UserController extends Controller
         );
 
         # Update and save model
-        ## Update hat relations
-        $roles = array_key_exists('roles', $validatedData) ? $validatedData['roles'] : [];
-        $user->roles()->sync($roles);
+        if (Auth::user()->hasRole('administrator')) {
+            ## Update hat relations
+            $roles = array_key_exists('roles', $validatedData) ? $validatedData['roles'] : [];
+            $user->roles()->sync($roles);
+        }
 
         ## Update general info
         $user->name = $validatedData['name'];

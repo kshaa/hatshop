@@ -149,7 +149,7 @@ class TradeController extends Controller
         );
 
         if ($validatedData['charm_or_hat'] == 'charm') {
-            $rules['charm_id'] = 'required|integer|exists:charm,id';
+            $rules['charm_id'] = 'required|integer|exists:charms,id';
             $validatedData = $request->validate(
                 $rules
             );
