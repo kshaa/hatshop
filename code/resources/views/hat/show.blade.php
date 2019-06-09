@@ -15,17 +15,20 @@
                         </div>
                     @endif
 
-                    @if ($hat->owner_id === Auth::user()->id || Auth::user()->hasRole('administrator'))
+                    @if ($hat->owner_id === Auth::user()->id || Auth::user()->hasRole('administrator') || Auth::user()->hasRole('trade_manager'))
                         <div class="text-right mb-3">
                             <a href="{{ route('hat_edit', [ 'id' => $hat->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit hat</a>
-                            <a href="{{ route('hat_delete', [ 'id' => $hat->id ]) }}"
-                                class="btn btn-danger col-md-3 mb-1"
-                                onclick="event.preventDefault(); document.getElementById('delete-hat-form').submit();">
-                                Delete hat
-                            </a>
-                            <form id="delete-hat-form" action="{{ route('hat_delete', [ 'id' => $hat->id ]) }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+                            
+                            @if ($hat->owner_id === Auth::user()->id || Auth::user()->hasRole('administrator'))
+                                <a href="{{ route('hat_delete', [ 'id' => $hat->id ]) }}"
+                                    class="btn btn-danger col-md-3 mb-1"
+                                    onclick="event.preventDefault(); document.getElementById('delete-hat-form').submit();">
+                                    Delete hat
+                                </a>
+                                <form id="delete-hat-form" action="{{ route('hat_delete', [ 'id' => $hat->id ]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            @endif
                         </div>
                     @endif
 

@@ -15,17 +15,20 @@
                         </div>
                     @endif
 
-                    @if ($charm->owner_id === Auth::user()->id || Auth::user()->hasRole('administrator'))
+                    @if ($charm->owner_id === Auth::user()->id || Auth::user()->hasRole('administrator') || Auth::user()->hasRole('trade_manager'))
                         <div class="text-right mb-3">
                             <a href="{{ route('charm_edit', [ 'id' => $charm->id ]) }}" class="btn btn-primary col-md-3 mb-1">Edit charm</a>
-                            <a href="{{ route('charm_delete', [ 'id' => $charm->id ]) }}"
-                                class="btn btn-danger col-md-3 mb-1"
-                                onclick="event.preventDefault(); document.getElementById('delete-charm-form').submit();">
-                                Delete charm
-                            </a>
-                            <form id="delete-charm-form" action="{{ route('charm_delete', [ 'id' => $charm->id ]) }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
+
+                            @if ($charm->owner_id === Auth::user()->id || Auth::user()->hasRole('administrator'))
+                                <a href="{{ route('charm_delete', [ 'id' => $charm->id ]) }}"
+                                    class="btn btn-danger col-md-3 mb-1"
+                                    onclick="event.preventDefault(); document.getElementById('delete-charm-form').submit();">
+                                    Delete charm
+                                </a>
+                                <form id="delete-charm-form" action="{{ route('charm_delete', [ 'id' => $charm->id ]) }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            @endif
                         </div>
                     @endif
 
