@@ -97,8 +97,8 @@ class UserData extends Seeder
         ## $trader is trying to sell $inactiveHat for 50ɕ
         $hatTrade = HatTrade::make();
         $hatTrade->start([
-            'seller_id' => $trader->id,
-            'product_id' => $inactiveHat->id,
+            'seller_id' => $tradeManager->id,
+            'product_id' => $cowboyHat->id,
             'yarn' => 50
         ]);
     }

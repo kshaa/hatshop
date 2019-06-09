@@ -11,6 +11,8 @@ use App\Charm;
 use Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\UnauthorizedException;
+use RuntimeException;
+use Illuminate\Validation\ValidationException;
 
 class TradeController extends Controller
 {
@@ -119,7 +121,13 @@ class TradeController extends Controller
             $trade = CharmTrade::findOrFail($id);
         }
         
-        $trade->complete(['buyer_id' => Auth::user()->id]);
+        try {
+            $trade->complete(['buyer_id' => Auth::user()->id]);
+        } catch (RuntimeException $runtimeException) {
+            throw ValidationException::withMessages([
+                'yarn' => ["You don't have enough yarn to buy this hat"],
+            ]);
+        }
         
         # Respond with a redirect to the newly created model
         return redirect()->route('trade_show', ['id' => $trade->id]);
