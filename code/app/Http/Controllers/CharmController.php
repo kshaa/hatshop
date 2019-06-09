@@ -120,6 +120,7 @@ class CharmController extends Controller
             $rules['active'] = $originalRules['active'];
         }
         $rules['hats'] = 'array';
+        $rules['hats.*'] = 'integer';
         $rules['label'] = $originalRules['label'];
         $rules['description'] = $originalRules['description'];
         $rules['color'] = $originalRules['color'];

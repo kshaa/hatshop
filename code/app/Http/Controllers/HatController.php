@@ -92,6 +92,7 @@ class HatController extends Controller
             $rules['active'] = $originalRules['active'];
         }
         $rules['charms'] = 'array';
+        $rules['charms.*'] = 'integer';
         $rules['label'] = $originalRules['label'];
         $rules['description'] = $originalRules['description'];
         $validatedData = $request->validate(
