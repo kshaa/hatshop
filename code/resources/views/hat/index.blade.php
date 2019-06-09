@@ -6,10 +6,22 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    Your hats
+                    Hats
                 </div>
                 <div class="card-body">
                     <div class="text-right mb-3">
+                        @if (app('request')->input('user') == 'others')
+                            <a href="{{ route('hat_index', [ 'user' => 'others' ]) }}" class="btn btn-secondary col-md-3 mb-1 active">Others' hats</a>
+                        @else
+                            <a href="{{ route('hat_index', [ 'user' => 'others' ]) }}" class="btn btn-secondary col-md-3 mb-1">Others' hats</a>
+                        @endif
+
+                        @if (app('request')->input('user') == 'self')
+                            <a href="{{ route('hat_index', [ 'user' => 'self' ]) }}" class="btn btn-secondary col-md-3 mb-1 active">Your hats</a>
+                        @else
+                            <a href="{{ route('hat_index', [ 'user' => 'self' ]) }}" class="btn btn-secondary col-md-3 mb-1">Your hats</a>
+                        @endif
+
                         <a href="{{ route('hat_new') }}" class="btn btn-primary col-md-3 mb-1">New hat</a>
                     </div>
                     @if (count($hats) > 0)

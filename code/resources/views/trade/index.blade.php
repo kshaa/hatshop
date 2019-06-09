@@ -6,7 +6,7 @@
         <div class="col-lg-8">
             <div class="card">
                 <div class="card-header">
-                    The trades
+                    Trades
                 </div>
                 <div class="card-body">
                     <div class="text-right mb-3">

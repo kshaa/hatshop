@@ -16,8 +16,16 @@ class HatController extends Controller
     /**
      * List all user hats
      */
-    public function index() {
-        $userHats = Auth::user()->ownedHats()->get();
+    public function index(Request $request) {
+        $userParam = $request->input('user');
+
+        if ($userParam == 'self') {
+            $userHats = Auth::user()->ownedHats()->get();
+        } else if ($userParam === 'others') {
+            $userHats = Hat::where('owner_id', '<>', Auth::user()->id)->get();        
+        } else {
+            return redirect()->route('hat_index', ['user' => 'self']);
+        }
 
         return view('hat/index', array('hats' => $userHats));
     }

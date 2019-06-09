@@ -13,8 +13,16 @@ class CharmController extends Controller
     /**
      * List all user charms
      */
-    public function index() {
-        $userCharms = Auth::user()->ownedCharms()->get();
+    public function index(Request $request) {
+        $userParam = $request->input('user');
+
+        if ($userParam == 'self') {
+            $userCharms = Auth::user()->ownedCharms()->get();        
+        } else if ($userParam === 'others') {
+            $userCharms = Charm::where('owner_id', '<>', Auth::user()->id)->get();        
+        } else {
+            return redirect()->route('charm_index', ['user' => 'self']);
+        }
 
         return view('charm/index', array('charms' => $userCharms));
     }
