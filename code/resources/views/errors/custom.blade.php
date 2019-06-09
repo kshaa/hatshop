@@ -11,7 +11,7 @@
             <div class="container">
                 <h1 class="masthead-heading mb-0">
                     <h2>{{ $message }}</h2>
-                    <a href="{{ route('home') }}" class="btn btn-primary btn-xl rounded-pill mt-5">{{ __('Lets go home!') }}</a>
+                    <a href="{{ route('home') }}" class="btn btn-primary btn-xl rounded-pill mt-5">{{ __('Back to site!') }}</a>
                 </h1>
             </div>
         </div>
