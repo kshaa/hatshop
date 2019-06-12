@@ -77,7 +77,6 @@ class UserData extends Seeder
 
         ## Attach user charms to user hats
         $cheetahCharm->hats()->attach($topHat->id);
-        $kangarooCharm->hats()->attach($tradeManager->id);
         $inactiveCharm->hats()->attach($inactiveHat->id);
 
         # Create some real trades
