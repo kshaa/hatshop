@@ -1,0 +1,61 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: hatshop-nginx
+spec:
+  selector:
+    matchLabels:
+      app: hatshop-nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hatshop-nginx
+    spec:
+      containers:
+      - image: blokflautijs/hatshopweb:1.0.3
+        name: hatshop-nginx
+        ports:
+        - name: http
+          containerPort: 80
+        volumeMounts:
+        - mountPath: "/var/www/public/.env"
+          subPath: ".env"
+          name: laravel-env
+          readOnly: true
+        - mountPath: "/etc/nginx/nginx.conf"
+          subPath: "nginx.conf"
+          name: nginx-conf
+          readOnly: true
+        - name: session-persistent-storage
+          mountPath: /var/www/public/storage/framework/sessions
+          subPath: sessions
+      volumes:
+      - name: session-persistent-storage
+        persistentVolumeClaim:
+          claimName: hatshop-pvc
+      - name: laravel-env
+        secret:
+          secretName: hatshopconfigs
+          items:
+          - key: "laravel.env"
+            path: ".env"
+      - name: nginx-conf
+        secret:
+          secretName: hatshopconfigs
+          items:
+          - key: "nginx.conf"
+            path: "nginx.conf"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hatshop-nginx
+spec:
+  selector:
+    app: hatshop-nginx
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80

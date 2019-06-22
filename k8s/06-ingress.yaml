@@ -1,0 +1,44 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hatshop
+  annotations:
+    kubernetes.io/ingress.class: "public"
+spec:
+  # START | Add TLS
+  tls:
+  - hosts:
+    - hatshop.svc.k8sd.veinbahs.lv
+    secretName: hatshop-cert-secret
+  # END | Add TLS
+  rules:
+  - host: hatshop.svc.k8sd.veinbahs.lv
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hatshop-nginx
+          servicePort: http
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hatshop-prod
+  annotations:
+    kubernetes.io/ingress.class: "public"
+spec:
+  # START | Add TLS
+  tls:
+  - hosts:
+    - hatshop.veinbahs.lv
+    secretName: hatshop-cert-secret
+  # END | Add TLS
+  rules:
+  - host: hatshop.veinbahs.lv
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hatshop-nginx
+          servicePort: http

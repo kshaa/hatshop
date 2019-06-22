@@ -1,23 +1,22 @@
-# Dockerized LEMP for Laravel
-Forked from [atillay/docker-lemp](https://github.com/atillay/docker-lemp), refactored for ease-of-use and extended for quick Laravel setup.
+# Hatshop
+A Laravel site to upload "Hats", "Charms" & trade them. 
+Forked from [kshaa/laravel-sandbox](https://github.com/kshaa/laravel-sandbox), extended for deploying to Kubernetes.  
+
+# Info
+Includes user roles:
+- Regular users "Traders" - can upload items, create trades & do purchases
+- Special users "Trade managers" - who can approve new uploaded items
+- Special users "Administrators" - who can delegate roles for all users
 
 # Quickstart
 ```
-# Configure docker services
-cp .env.sample .env
-
-# Build Laravel Dockerfile
-docker-compose build 
-
 # Run all containers
 docker-compose up -d 
-
-# Create a new Laravel application codebase named "myapp"
-docker-compose run php createapp myapp
 
 # Link hat model storage as public
 docker-compose run php artisan storage:link
 
-# Run Laravel Artisan CLI commands
-docker-compose run php artisan [...] 
+# Create database structure & seed it
+docker-compose run php artisan migrate:fresh
+docker-compose run php artisan db:seed
 ```

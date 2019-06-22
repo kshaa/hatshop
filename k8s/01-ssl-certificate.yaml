@@ -1,0 +1,39 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: hatshop-cert
+  namespace: default
+spec:
+  secretName: hatshop-cert-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: hatshop.svc.k8sd.veinbahs.lv
+  dnsNames:
+  - hatshop.svc.k8sd.veinbahs.lv
+  acme:
+    config:
+    - http01:
+        ingressClass: public
+      domains:
+      - hatshop.svc.k8sd.veinbahs.lv
+---
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: hatshop-cert-prod
+  namespace: default
+spec:
+  secretName: hatshop-cert-secret
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: hatshop.veinbahs.lv
+  dnsNames:
+  - hatshop.veinbahs.lv
+  acme:
+    config:
+    - http01:
+        ingressClass: public
+      domains:
+      - hatshop.veinbahs.lv

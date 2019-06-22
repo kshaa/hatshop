@@ -1,0 +1,61 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: hatshop-php
+spec:
+  selector:
+    matchLabels:
+      app: hatshop-php
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hatshop-php
+    spec:
+      containers:
+      - image: blokflautijs/hatshop:1.0.3
+        name: hatshop-php
+        ports:
+        - containerPort: 9000
+          name: php-socket
+        volumeMounts:
+        - mountPath: "/var/www/public/.env"
+          subPath: ".env"
+          name: laravel-env
+          readOnly: true
+        - mountPath: "/etc/php/php.ini"
+          subPath: "php.ini"
+          name: php-ini
+          readOnly: true
+        - name: session-persistent-storage
+          mountPath: /var/www/public/storage/framework/sessions
+          subPath: sessions
+      volumes:
+      - name: session-persistent-storage
+        persistentVolumeClaim:
+          claimName: hatshop-pvc
+      - name: laravel-env
+        secret:
+          secretName: hatshopconfigs
+          items:
+          - key: "laravel.env"
+            path: ".env"
+      - name: php-ini
+        secret:
+          secretName: hatshopconfigs
+          items:
+          - key: "php.ini"
+            path: "php.ini"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hatshop-php
+spec:
+  selector:
+    app: hatshop-php
+  ports:
+  - name: php-socket
+    port: 9000
+    targetPort: 9000

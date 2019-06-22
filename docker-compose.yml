@@ -6,7 +6,9 @@ services:
     # However I add it using the 'env_file' directive
 
     php: # With Laravel installer and some extra scripts
-        build: ./docker/laravel
+        build: 
+            context: ./docker/laravel
+            dockerfile: ./runtime.Dockerfile
         env_file: .env
         volumes:
             - ./docker/php/php.ini:/usr/local/etc/php/php.ini

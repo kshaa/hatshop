@@ -1,0 +1,71 @@
+apiVersion: apps/v1 # for versions before 1.9.0 use apps/v1beta2
+kind: Deployment
+metadata:
+  name: hatshop-mysql
+spec:
+  selector:
+    matchLabels:
+      app: hatshop-mysql
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: hatshop-mysql
+    spec:
+      containers:
+      - image: mysql:5.7
+        name: hatshop-mysql
+        env:
+        - name: "MYSQL_ROOT_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: hatshopenv
+              key: "MYSQL_ROOT_PASSWORD"
+        - name: "MYSQL_DATABASE"
+          valueFrom:
+            secretKeyRef:
+              name: hatshopenv
+              key: "MYSQL_DATABASE"
+        - name: "MYSQL_USER"
+          valueFrom:
+            secretKeyRef:
+              name: hatshopenv
+              key: "MYSQL_USER"
+        - name: "MYSQL_PASSWORD"
+          valueFrom:
+            secretKeyRef:
+              name: hatshopenv
+              key: "MYSQL_PASSWORD"
+        ports:
+        - name: mysql-socket
+          containerPort: 3306
+        volumeMounts:
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
+          subPath: mysql
+        - mountPath: "/etc/mysql/conf.d/custom.cnf"
+          subPath: "custom.cnf"
+          name: mysql-cnf
+          readOnly: true
+      volumes:
+      - name: mysql-cnf
+        secret:
+          secretName: hatshopconfigs
+          items:
+          - key: "mysql.cnf"
+            path: "mysql.cnf"
+      - name: mysql-persistent-storage
+        persistentVolumeClaim:
+          claimName: hatshop-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hatshop-mysql
+spec:
+  selector:
+    app: hatshop-mysql
+  ports:
+  - port: 3306
+    targetPort: 3306
