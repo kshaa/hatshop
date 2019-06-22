@@ -32,7 +32,7 @@ spec:
   tls:
   - hosts:
     - hatshop.veinbahs.lv
-    secretName: hatshop-cert-secret
+    secretName: hatshop-cert-prod-secret
   # END | Add TLS
   rules:
   - host: hatshop.veinbahs.lv

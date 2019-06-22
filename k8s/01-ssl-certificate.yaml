@@ -24,7 +24,7 @@ metadata:
   name: hatshop-cert-prod
   namespace: default
 spec:
-  secretName: hatshop-cert-secret
+  secretName: hatshop-cert-prod-secret
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
