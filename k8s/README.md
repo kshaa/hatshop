@@ -13,6 +13,8 @@ make push VERSION_TAG=1.0.2
 ## Deployment
 This deployment is full of hardcoded values and resources.  
 It should be rewritten w/ Helm templates for customizability.  
+This deployment supposes that several "base" resourses already exist in the cluster, such as `cert-manager` & `nfs`-type `persistent volume`.  
+These "base" resources can be seen in [kshaa/k8s-manifests](https://github.com/kshaa/k8s-manifests/tree/master/base-addons) repo.  
 
 ``` bash
 # Deploy secrets
